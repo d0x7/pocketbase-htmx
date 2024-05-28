@@ -1,0 +1,25 @@
+# https://taskfile.dev
+
+version: '3'
+
+tasks:
+  templ:
+    desc: Generate templ templates
+    cmds:
+      - templ generate
+  build:
+    desc: Build the application
+    deps:
+      - templ
+    cmds:
+      - go build -o ./bin/app main.go
+  run:
+    desc: Run the application
+    deps:
+      - templ
+    cmds:
+      - go run main.go serve --dev --http 0.0.0.0:8090
+  test:
+    desc: Run the tests
+    cmds:
+      - go test ./...
